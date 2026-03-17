@@ -44,6 +44,7 @@ python3 manage.py runserver
 
 ## Important Notes
 - [Project Setup](/notes/01_project_setup.md)
+- [Create Package and Django App](/notes/02_create_package_and_app.md)
 
 ## References
 - [Django REST Framework - BugBytes](https://www.youtube.com/watch?v=6AEvlNgRPNc&list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t&index=2)
