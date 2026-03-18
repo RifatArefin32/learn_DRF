@@ -50,6 +50,7 @@ python3 manage.py runserver
 - [How to populate dummy data](/notes/05_populate_dummy_data.md)
 - [Django Query Optimization](/notes/06_django_query_optimization.md)
 - [Setup Django Silk Profiling](/notes/07_django_silk_profiling.md)
+- [Create Super User](/notes/08_create_super_user.md)
 
 ## References
 - [Django REST Framework - BugBytes](https://www.youtube.com/watch?v=6AEvlNgRPNc&list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t&index=2)

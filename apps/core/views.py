@@ -98,3 +98,13 @@ class AllOrderListView(generics.ListAPIView):
             status = self.request.query_params['status']
             queryset = queryset.filter(status=status)
         return queryset
+
+
+# My order list view (class-based view)
+class MyOrderListView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = []  # Allow unrestricted access
+
+    def get_queryset(self):
+        user = self.request.user
+        return Order.objects.filter(user=user).prefetch_related('order_items', 'order_items__product')
