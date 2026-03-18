@@ -23,6 +23,18 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True, read_only=True)
+    total_price = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField('sum_total_price')
+
+    def get_total_price(self, obj):
+        return sum(item.sub_total for item in obj.order_items.all())
+
+    def sum_total_price(self, obj):
+        total = 0
+        for item in obj.order_items.all():
+            total += item.sub_total
+        return total
+    
     class Meta:
         model = Order
-        fields = ['order_id', 'order_items', 'created_at', 'status', 'user']
+        fields = ['order_id', 'order_items', 'total_price', 'total', 'created_at', 'status', 'user']
