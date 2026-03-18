@@ -65,9 +65,21 @@ def all_order_list(request):
 
 # Product list view (class-based view)
 class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = []  # Allow unrestricted access
+    
+    def get_queryset(self):
+        self.queryset = Product.objects.all()
+        min_price = self.request.query_params.get('min_price')
+        max_price = self.request.query_params.get('max_price')
+        min_stock = self.request.query_params.get('min_stock')
+        if min_price is not None:
+            self.queryset = self.queryset.filter(price__gte=min_price)
+        if max_price is not None:
+            self.queryset = self.queryset.filter(price__lte=max_price)
+        if min_stock is not None:
+            self.queryset = self.queryset.filter(stock__gte=min_stock)
+        return self.queryset
 
 # Product detail view (class-based view)
 class ProductDetailView(generics.RetrieveAPIView):
