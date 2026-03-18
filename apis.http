@@ -35,3 +35,8 @@ Content-Type: application/json
 ### Show all orders with query parameters
 GET {{localhost}}/core/all-orders/?status=cancelled HTTP/1.1
 Content-Type: application/json
+
+### Show my orders
+GET {{localhost}}/core/my-orders/ HTTP/1.1
+Content-Type: application/json
+Authorization: Basic admin:password

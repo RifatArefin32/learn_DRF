@@ -11,4 +11,5 @@ class User(AbstractUser):
     ], default='male')
 
     def __str__(self):
-        return self.get_full_name()
+        # Fall back to username if full name isn't set (admin listviews often use __str__)
+        return self.get_full_name() or self.username
