@@ -47,6 +47,9 @@ python3 manage.py runserver
 - [Create Package and Django App](/notes/02_create_package_and_app.md)
 - [Create Custom User Model](/notes/3_create_custom_user_model.md)
 - [Model Relationship](/notes/04_django_model_relationship.md)
+- [How to populate dummy data](/notes/05_populate_dummy_data.md)
+- [Django Query Optimization](/notes/06_django_query_optimization.md)
+- [Setup Django Silk Profiling](/notes/07_django_silk_profiling.md)
 
 ## References
 - [Django REST Framework - BugBytes](https://www.youtube.com/watch?v=6AEvlNgRPNc&list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t&index=2)
