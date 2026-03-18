@@ -46,6 +46,7 @@ python3 manage.py runserver
 - [Project Setup](/notes/01_project_setup.md)
 - [Create Package and Django App](/notes/02_create_package_and_app.md)
 - [Create Custom User Model](/notes/3_create_custom_user_model.md)
+- [Model Relationship](/notes/04_django_model_relationship.md)
 
 ## References
 - [Django REST Framework - BugBytes](https://www.youtube.com/watch?v=6AEvlNgRPNc&list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t&index=2)
