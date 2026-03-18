@@ -86,3 +86,15 @@ class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = []  # Allow unrestricted access
+
+# All order list view (class-based view)
+class AllOrderListView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('order_items', 'order_items__product').all()
+    serializer_class = OrderSerializer
+    permission_classes = []  # Allow unrestricted access
+
+    def filter_queryset(self, queryset):
+        if 'status' in self.request.query_params:
+            status = self.request.query_params['status']
+            queryset = queryset.filter(status=status)
+        return queryset

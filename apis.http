@@ -31,3 +31,7 @@ Content-Type: application/json
 ### Show all orders
 GET {{localhost}}/core/all-orders/ HTTP/1.1
 Content-Type: application/json
+
+### Show all orders with query parameters
+GET {{localhost}}/core/all-orders/?status=cancelled HTTP/1.1
+Content-Type: application/json
