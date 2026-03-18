@@ -1,9 +1,10 @@
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.db.models import Max, Min
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from apps.core.models import Order, Product
-from apps.core.serializers import OrderSerializer, ProductSerializer
+from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
 # Product list view (function-based view)
 @api_view(['GET'])
@@ -43,6 +44,19 @@ def product_detail_shortcut(request, pk):
     serializer = ProductSerializer(product)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+# Product info view (function-based view)
+@api_view(['GET'])
+def product_info(request):
+    products = Product.objects.all()
+    serializer = ProductInfoSerializer({
+        'products': products,
+        'count': products.count(),
+        'max_price': products.aggregate(max_price = Max('price'))['max_price'],
+        'min_price': products.aggregate(min_price = Min('price'))['min_price']
+    })
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# All order list view (function-based view)
 @api_view(['GET'])
 def all_order_list(request):
     orders = Order.objects.all()

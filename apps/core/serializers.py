@@ -38,3 +38,13 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['order_id', 'order_items', 'total_price', 'total', 'created_at', 'status', 'user']
+
+
+class ProductInfoSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True, read_only=True)
+    count = serializers.IntegerField()
+    max_price = serializers.DecimalField(max_digits=10, decimal_places=2)   
+    min_price = serializers.DecimalField(max_digits=10, decimal_places=2)   
+    class Meta:
+        model = Product
+        fields = ['products', 'count', 'max_price', 'min_price']
