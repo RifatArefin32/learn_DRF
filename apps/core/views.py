@@ -2,7 +2,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Max, Min
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import generics, status
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
@@ -62,3 +62,9 @@ def all_order_list(request):
     orders = Order.objects.prefetch_related('order_items', 'order_items__product').all()
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Product list view (class-based view)
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = []  # Allow unrestricted access
