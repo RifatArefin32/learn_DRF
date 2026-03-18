@@ -59,6 +59,6 @@ def product_info(request):
 # All order list view (function-based view)
 @api_view(['GET'])
 def all_order_list(request):
-    orders = Order.objects.all()
+    orders = Order.objects.prefetch_related('order_items', 'order_items__product').all()
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
