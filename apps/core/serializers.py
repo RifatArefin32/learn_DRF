@@ -14,10 +14,11 @@ class ProductSerializer(serializers.ModelSerializer):
     
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(read_only=True)
+    product_name = serializers.CharField(source='product.name', read_only=True)
+    product_price = serializers.DecimalField(source='product.price', max_digits=10, decimal_places=2, read_only=True)
     class Meta:
         model = OrderItem
-        fields = ['product', 'quantity', 'sub_total']
+        fields = ['product_name', 'product_price', 'quantity', 'sub_total']
 
 
 class OrderSerializer(serializers.ModelSerializer):
