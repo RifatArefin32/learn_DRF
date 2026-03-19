@@ -139,3 +139,10 @@ MEDIA_URL = '/media/'
 # ├── media/
 # │   └── products/
 # │       └── your_uploaded_image.jpg
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
