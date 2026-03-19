@@ -27,7 +27,7 @@ Authorization: Token 6aaddce35a72e80955b134722d6847ab6e2e5455
 ### Show product details
 GET {{localhost}}/core/products/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Basic admin:password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzczOTUwNTMwLCJpYXQiOjE3NzM5NTAyMzAsImp0aSI6ImIwNTBlYmZmMGFmZjQwYjhiY2YwMGI2YmFhY2I2NTFiIiwidXNlcl9pZCI6IjEifQ.32N57zX39RSE8EJOzlu4-04d-rVS3CyOPawI0M23pLs
 
 ### Show all products using shortcut
 GET {{localhost}}/core/products/shortcut HTTP/1.1
@@ -80,4 +80,29 @@ Content-Type: application/json
 {
     "username": "iward",
     "password": "password123"
+}
+
+### Get JWT token (Access and Refresh tokens)
+POST {{localhost}}/account/api/token/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "iward",
+    "password": "password123"
+}
+
+### Validate access token
+POST {{localhost}}/account/api/token/verify/ HTTP/1.1
+Content-Type: application/json  
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzczOTUwNzQyLCJpYXQiOjE3NzM5NTA0NDIsImp0aSI6ImI1Y2E5NmM0MGFiNzQ0ZTI5N2FiMGIyZjZhMmNiNmIxIiwidXNlcl9pZCI6IjEifQ.YPrVvLe-SHpnYehYKu6lXrgBYG0rHFsWBjE-KknFlFM"
+}
+
+### Get new access token using refresh token
+POST {{localhost}}/account/api/token/refresh/ HTTP/1.1
+Content-Type: application/json 
+
+{
+    "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc3NDAzNjc3NywiaWF0IjoxNzczOTUwMzc3LCJqdGkiOiJkNWIyOWY0MmIyNjU0YjgwYmU4NWFlZWY4NTBiMDUzMSIsInVzZXJfaWQiOiIxIn0.CjsjZan6O0CPIjnq5XTJ3CSi28V15wGUYV1edTGkOsE"
 }
