@@ -67,7 +67,12 @@ def all_order_list(request):
 # Product list view (class-based view)
 class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
-    permission_classes = []  # Allow unrestricted access
+    # permission_classes = []  # Allow unrestricted access
+
+    def get_permissions(self):
+        if self.request.method == 'POST':
+            return [permissions.IsAuthenticated()]
+        return []
     
     def get_queryset(self):
         self.queryset = Product.objects.all()
