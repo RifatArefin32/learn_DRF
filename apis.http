@@ -27,6 +27,7 @@ Content-Type: application/json
 ### Show product info
 GET {{localhost}}/core/product-info/ HTTP/1.1
 Content-Type: application/json
+Authorization: Basic admin:password
 
 ### Show all orders
 GET {{localhost}}/core/all-orders/ HTTP/1.1
