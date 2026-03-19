@@ -51,7 +51,9 @@ python3 manage.py runserver
 - [Django Query Optimization](/notes/06_django_query_optimization.md)
 - [Setup Django Silk Profiling](/notes/07_django_silk_profiling.md)
 - [Create Super User](/notes/08_create_super_user.md)
+- [Simple JWT Authentication](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
 
 ## References
 - [Django REST Framework - BugBytes](https://www.youtube.com/watch?v=6AEvlNgRPNc&list=PL-2EBeDYMIbTLulc9FSoAXhbmXpLq2l5t&index=2)
 - [Django REST Framework Documentation](https://www.django-rest-framework.org/)
+- [Simple JWT Authentication](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html)
