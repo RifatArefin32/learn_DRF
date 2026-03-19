@@ -2,7 +2,7 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.db.models import Max, Min
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
@@ -91,7 +91,7 @@ class ProductDetailView(generics.RetrieveAPIView):
 class AllOrderListView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('order_items', 'order_items__product').all()
     serializer_class = OrderSerializer
-    permission_classes = []  # Allow unrestricted access
+    permission_classes = [permissions.IsAdminUser]
 
     def filter_queryset(self, queryset):
         if 'status' in self.request.query_params:
@@ -103,7 +103,7 @@ class AllOrderListView(generics.ListAPIView):
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):
     serializer_class = OrderSerializer
-    permission_classes = []  # Allow unrestricted access
+    permission_classes = [permissions.IsAuthenticated]  # Allow only authenticated users
 
     def get_queryset(self):
         user = self.request.user
