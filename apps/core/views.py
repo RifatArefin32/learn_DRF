@@ -65,7 +65,7 @@ def all_order_list(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 # Product list view (class-based view)
-class ProductListView(generics.ListAPIView):
+class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     permission_classes = []  # Allow unrestricted access
     
