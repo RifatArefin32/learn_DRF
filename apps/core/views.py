@@ -91,7 +91,7 @@ class ProductListCreateView(generics.ListCreateAPIView):
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = []  # Allow unrestricted access
+    permission_classes = [permissions.IsAuthenticated]  # Allow unrestricted access
 
 # All order list view (class-based view)
 class AllOrderListView(generics.ListAPIView):
