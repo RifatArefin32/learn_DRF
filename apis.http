@@ -29,6 +29,18 @@ GET {{localhost}}/core/product-info/ HTTP/1.1
 Content-Type: application/json
 Authorization: Basic admin:password
 
+### Create a new product
+POST {{localhost}}/core/products/create/ HTTP/1.1
+Content-Type: application/json
+Authorization: Basic admin:password
+
+{   
+    "name": "New Product 3",
+    "description": "This is a new product 3",
+    "price": 49.99,
+    "stock": 20
+}
+
 ### Show all orders
 GET {{localhost}}/core/all-orders/ HTTP/1.1
 Content-Type: application/json

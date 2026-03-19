@@ -123,3 +123,14 @@ class ProoductInfoApiView(APIView):
             'min_price': products.aggregate(min_price=Min('price'))['min_price']
         })
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+# Class-based view for creating a product
+class ProductCreateApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
