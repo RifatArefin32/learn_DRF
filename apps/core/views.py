@@ -88,10 +88,15 @@ class ProductListCreateView(generics.ListCreateAPIView):
         return self.queryset
 
 # Product detail view (class-based view)
-class ProductDetailView(generics.RetrieveAPIView):
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Allow unrestricted access
+    lookup_url_kwarg = 'product_id' 
+
+    def get_permissions(self):
+        if(self.request.method in ['PUT', 'PATCH', 'DELETE']):
+            return [permissions.IsAdminUser()]
+        return [permissions.IsAuthenticated()]
 
 # All order list view (class-based view)
 class AllOrderListView(generics.ListAPIView):
