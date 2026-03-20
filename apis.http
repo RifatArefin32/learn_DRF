@@ -27,7 +27,33 @@ Authorization: Token 6aaddce35a72e80955b134722d6847ab6e2e5455
 ### Show product details
 GET {{localhost}}/core/products/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzczOTg3NjM0LCJpYXQiOjE3NzM5ODc1NzQsImp0aSI6IjI3ZjNlYTA0M2MzNDQxMjFiYjdjNDJiMDM3NzRkNThiIiwidXNlcl9pZCI6IjEifQ.zlpG6v2QvXmKidP8XueFrAiDuGndO75zS3pEQvML8FY
+Authorization: Basic admin:password
+
+### Update product details (full update)
+PUT {{localhost}}/core/products/1/ HTTP/1.1
+Content-Type: application/json
+Authorization: Basic admin:password
+
+{   
+    "name": "Updated Product 1",
+    "description": "This is an updated product 1",
+    "price": 59.99,
+    "stock": 25
+}
+
+### Update product details (partial update)
+PATCH {{localhost}}/core/products/1/ HTTP/1.1
+Content-Type: application/json
+Authorization: Basic admin:password 
+
+{   
+    "price": 39.99
+}
+
+### Delete a product
+DELETE {{localhost}}/core/products/1/ HTTP/1.1
+Content-Type: application/json
+Authorization: Basic admin:password 
 
 ### Show all products using shortcut
 GET {{localhost}}/core/products/shortcut HTTP/1.1
