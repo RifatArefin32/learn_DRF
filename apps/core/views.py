@@ -3,7 +3,8 @@ from django.db.models import Max, Min
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics, status, permissions
+from rest_framework import generics, status, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from apps.core.filters import AllOrderFilter, ProductFilter
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
@@ -70,6 +71,8 @@ class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filterset_class = ProductFilter
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['name', 'description']
 
     def get_permissions(self):
         if self.request.method == 'POST':
@@ -97,7 +100,10 @@ class AllOrderListView(generics.ListAPIView):
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Allow only authenticated users
+    permission_classes = [permissions.IsAuthenticated] 
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'status']
+    ordering = ['-created_at']  # Default ordering
 
     def get_queryset(self):
         user = self.request.user
