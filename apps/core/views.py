@@ -3,7 +3,7 @@ from django.db.models import Max, Min
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics, status, permissions, filters
+from rest_framework import generics, status, permissions, filters, pagination
 from django_filters.rest_framework import DjangoFilterBackend
 from apps.core.filters import AllOrderFilter, ProductFilter, FilterOrdersByUser
 from apps.core.models import Order, Product
@@ -74,6 +74,11 @@ class ProductListCreateView(generics.ListCreateAPIView):
     filterset_class = ProductFilter
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     search_fields = ['name', 'description']
+    pagination_class = pagination.LimitOffsetPagination
+    pagination_class.default_limit = 10
+    pagination_class.max_limit = 100
+    pagination_class.limit_query_param = 'limit' # Optional: Change the query parameter for limit (default is 'limit')
+    pagination_class.offset_query_param = 'offset' # Optional: Change the query parameter for offset (default is 'offset')
 
     def get_permissions(self):
         if self.request.method == 'POST':
