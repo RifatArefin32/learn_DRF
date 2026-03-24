@@ -7,6 +7,7 @@ from rest_framework import generics, status, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from apps.core.filters import AllOrderFilter, ProductFilter, FilterOrdersByUser
 from apps.core.models import Order, Product
+from apps.core.paginations import AllOrdersListPagination
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
 # Product list view (function-based view)
@@ -96,6 +97,7 @@ class AllOrderListView(generics.ListAPIView):
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAdminUser]
     filterset_class = AllOrderFilter
+    pagination_class = AllOrdersListPagination
 
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):
