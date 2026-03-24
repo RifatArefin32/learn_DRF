@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, status, permissions
-from apps.core.filters import ProductFilter
+from apps.core.filters import AllOrderFilter, ProductFilter
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
@@ -92,13 +92,7 @@ class AllOrderListView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('order_items', 'order_items__product').all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAdminUser]
-
-    def filter_queryset(self, queryset):
-        if 'status' in self.request.query_params:
-            status = self.request.query_params['status']
-            queryset = queryset.filter(status=status)
-        return queryset
-
+    filterset_class = AllOrderFilter
 
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):

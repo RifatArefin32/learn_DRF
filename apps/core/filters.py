@@ -1,6 +1,6 @@
 
 import django_filters
-from apps.core.models import Product
+from apps.core.models import Product, Order
 
 class ProductFilter(django_filters.FilterSet):
     min_price = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
@@ -12,3 +12,8 @@ class ProductFilter(django_filters.FilterSet):
         fields = {
             'stock': ['exact'],
         }
+
+class AllOrderFilter(django_filters.FilterSet):
+    class Meta:
+        model = Order
+        fields = ['status']
