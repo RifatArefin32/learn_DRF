@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, status, permissions
+from apps.core.filters import ProductFilter
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
@@ -66,26 +67,14 @@ def all_order_list(request):
 
 # Product list view (class-based view)
 class ProductListCreateView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filterset_fields = ['stock']
+    filterset_class = ProductFilter
 
     def get_permissions(self):
         if self.request.method == 'POST':
             return [permissions.IsAuthenticated()]
         return []
-    
-    def get_queryset(self):
-        self.queryset = Product.objects.all()
-        min_price = self.request.query_params.get('min_price')
-        max_price = self.request.query_params.get('max_price')
-        min_stock = self.request.query_params.get('min_stock')
-        if min_price is not None:
-            self.queryset = self.queryset.filter(price__gte=min_price)
-        if max_price is not None:
-            self.queryset = self.queryset.filter(price__lte=max_price)
-        if min_stock is not None:
-            self.queryset = self.queryset.filter(stock__gte=min_stock)
-        return self.queryset
 
 # Product detail view (class-based view)
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
