@@ -67,7 +67,7 @@ def all_order_list(request):
 # Product list view (class-based view)
 class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
-    # permission_classes = []  # Allow unrestricted access
+    filterset_fields = ['stock']
 
     def get_permissions(self):
         if self.request.method == 'POST':

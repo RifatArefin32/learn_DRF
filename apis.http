@@ -12,6 +12,10 @@ Content-Type: application/json
 GET {{localhost}}/core/products/?min_price=10&max_price=50&min_stock=5 HTTP/1.1
 Content-Type: application/json 
 
+### Show all products with is in stock filter
+GET {{localhost}}/core/products/?stock=20 HTTP/1.1
+Content-Type: application/json
+
 ### Create a new product
 POST {{localhost}}/core/products/ HTTP/1.1
 Content-Type: application/json
