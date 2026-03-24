@@ -1,6 +1,7 @@
 
-import django_filters
+from rest_framework import filters
 from apps.core.models import Product, Order
+import django_filters
 
 class ProductFilter(django_filters.FilterSet):
     min_price = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
@@ -17,3 +18,7 @@ class AllOrderFilter(django_filters.FilterSet):
     class Meta:
         model = Order
         fields = ['status']
+
+class FilterOrdersByUser(filters.BaseFilterBackend):
+    def filter_queryset(self, request, queryset, view):
+        return queryset.filter(user=request.user)
