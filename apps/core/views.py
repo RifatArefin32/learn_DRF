@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, status, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
-from apps.core.filters import AllOrderFilter, ProductFilter
+from apps.core.filters import AllOrderFilter, ProductFilter, FilterOrdersByUser
 from apps.core.models import Order, Product
 from apps.core.serializers import OrderSerializer, ProductSerializer, ProductInfoSerializer
 
@@ -99,15 +99,16 @@ class AllOrderListView(generics.ListAPIView):
 
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('order_items', 'order_items__product').all()
     serializer_class = OrderSerializer
     permission_classes = [permissions.IsAuthenticated] 
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.OrderingFilter, FilterOrdersByUser]
     ordering_fields = ['created_at', 'status']
     ordering = ['-created_at']  # Default ordering
 
-    def get_queryset(self):
-        user = self.request.user
-        return Order.objects.filter(user=user).prefetch_related('order_items', 'order_items__product')
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Order.objects.filter(user=user).prefetch_related('order_items', 'order_items__product')
 
 # Class-based view for product info
 class ProoductInfoApiView(APIView):
