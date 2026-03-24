@@ -111,7 +111,7 @@ Content-Type: application/json
 Authorization: Basic admin:password
 
 ### Show my orders
-GET {{localhost}}/core/my-orders/ HTTP/1.1
+GET {{localhost}}/core/my-orders/?ordering=-status HTTP/1.1
 Content-Type: application/json
 Authorization: Basic admin:password
 

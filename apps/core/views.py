@@ -100,7 +100,10 @@ class AllOrderListView(generics.ListAPIView):
 # My order list view (class-based view)
 class MyOrderListView(generics.ListAPIView):
     serializer_class = OrderSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Allow only authenticated users
+    permission_classes = [permissions.IsAuthenticated] 
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'status']
+    ordering = ['-created_at']  # Default ordering
 
     def get_queryset(self):
         user = self.request.user
